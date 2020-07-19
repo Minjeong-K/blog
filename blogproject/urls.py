@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import blogapp.views
+import portfolioapp.views
+# media 사용을 위해 아래 두개 import 해야하는건 외우셈
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,4 +27,7 @@ urlpatterns = [
     path('blog/<int:blog_id>',blogapp.views.detail, name="detail"),
     path('blog/new/',blogapp.views.new, name="new"),
     path('blog/create', blogapp.views.create, name="create"),
+    path('portfolio/',portfolioapp.views.portfolio, name="portfolio"),
 ]
+
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
