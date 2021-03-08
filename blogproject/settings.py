@@ -122,7 +122,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS=[
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'portfolioapp', 'static')
     # static 파일들이 현재 어디에 있는지를 쓰는 곳
 ]

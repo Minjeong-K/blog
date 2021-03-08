@@ -9,8 +9,10 @@ def home(request):
 
 def signup(request):
     if request.method == 'POST':
-        if request.POST['password1']==request.POST['password2']:  # 비밀번호 확인 값 일치
-            user.User.objects.create_user(username=request.POST['username'],password=request.POST['password1'])
+        if User.objects.filter(username=request.POST['username']).exists(): #아이디 중복 체크
+            return render(request, 'signup.html',{'error':'username is already exist.'})
+        if request.POST['password1'] == request.POST['password2']:  # 비밀번호 확인 값 일치
+            user = User.objects.create_user(username=request.POST['username'],password=request.POST['password1'])
             auth.login(request, user)
             return redirect('home')   # 위에 다 끝내면 아묻따 home 으로
     return render(request, 'signup.html')
@@ -32,4 +34,4 @@ def logout(reqest):
     if reqest.method == 'POST':
         auth.logout(request)
         return redirect('home')
-    return render(reqest, 'login.html')
+    return render(reqeust, 'login.html')
